@@ -20,11 +20,13 @@ int main(int argc, char *argv[])
                 //get photo link
 //                QMessageBox::about(NULL,"hasPhoto","has photo");
                 std::cout<<"has photo"<<endl;
+                pf.nextPhoto();
             }
             while(pf.hasPage()){
                 //get next page link
 //                QMessageBox::about(NULL,"","has page");
                 std::cout<<"has page"<<endl;
+                pf.nextPage();
             }
         }
     }

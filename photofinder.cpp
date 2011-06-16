@@ -23,7 +23,6 @@ photoFinder::photoFinder(QByteArray in)
 
 bool photoFinder::hasPage(){
     if( content.indexOf("class=\"Next\"",indexOfPage) != -1){
-        indexOfPage = content.indexOf("class=\"Next\"",indexOfPage);
         return true;
     }
     return false;
@@ -31,7 +30,6 @@ bool photoFinder::hasPage(){
 
 bool photoFinder::hasPhoto(){
     if( content.indexOf("photo_container",indexOfPhoto) != -1 ){
-        indexOfPhoto = content.indexOf("photo_container",indexOfPhoto);
         return true;
     }
 
@@ -39,9 +37,11 @@ bool photoFinder::hasPhoto(){
 }
 
 QString photoFinder::nextPage(){
+    indexOfPage = content.indexOf("class=\"Next\"" ,indexOfPage) + 100;
     return NULL;
 }
 
 QString photoFinder::nextPhoto(){
+    indexOfPhoto = content.indexOf("photo_container",indexOfPhoto) + 100;
     return NULL;
 }
