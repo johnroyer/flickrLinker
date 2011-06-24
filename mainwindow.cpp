@@ -28,22 +28,26 @@ void MainWindow::handleNetworkData(QNetworkReply *networkReply){
         QString content(response);
 
         photoFinder pf(response);
-        ui->status->append("Parsing HTML .....");
+        QString link = url.toString();
+        QString pageNumber = link.mid(link.indexOf("page"), link.lastIndexOf("/") - 1 );
+        ui->statusBar->showMessage("Reading " + pageNumber);
 
         while(pf.hasPhoto()){
             QString path = pf.nextPhoto();
             path = "http://www.flickr.com" + path;
-            ui->status->append(path + "\n");
-//            QMessageBox::about(NULL, "path", path);
+            ui->status->append(path);
         }
 
         if(pf.hasPage()){
             QString page = pf.nextPage();
             page = "http://www.flickr.com" + page;
-            ui->status->append("Has another page: " + page + "\n");
+            networkManager.get(QNetworkRequest(QUrl(page)));
+        }else{
+            ui->statusBar->showMessage("Finished", 5);
+            ui->pushButton->setEnabled(true);
         }
     }else{
-        ui->status->append("error");
+        ui->statusBar->showMessage("Error", 10);
     }
 
 }
@@ -51,10 +55,11 @@ void MainWindow::handleNetworkData(QNetworkReply *networkReply){
 void MainWindow::on_pushButton_clicked()
 {
     ui->status->setText("");
+    ui->pushButton->setEnabled(false);
 
     QString homeUrl = ui->homeUrl->text();
     QUrl url(homeUrl);
-    ui->status->append("Set URL to " + homeUrl);
+    ui->statusBar->showMessage("Reading URL: " + homeUrl);
 
     networkManager.get(QNetworkRequest(url));
 
