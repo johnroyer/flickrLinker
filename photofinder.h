@@ -1,6 +1,7 @@
 #ifndef PHOTOFINDER_H
 #define PHOTOFINDER_H
 #include <QString>
+#include <QRegExp>
 
 class photoFinder
 {
@@ -16,6 +17,7 @@ public:
 
 private:
     QByteArray content;
+    QRegExp *rx;
     int indexOfPhoto;
     int indexOfPage;
 };

@@ -3,7 +3,9 @@
 #include <QString>
 #include <QtNetwork>
 #include <QXmlStreamReader>
-
+#include "photofinder.h"
+#include <iostream>
+#include <QMessageBox>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -24,24 +26,22 @@ void MainWindow::handleNetworkData(QNetworkReply *networkReply){
     if (!networkReply->error()) {
         QByteArray response(networkReply->readAll());
         QString content(response);
-//        content = content.replace("<", "&lt;");
-//        content = content.replace(">", "&gt;");
-//        ui->status->append(content);
 
-
+        photoFinder pf(response);
         ui->status->append("Parsing HTML .....");
-        QXmlStreamReader xml(response);
-        while(!xml.atEnd()){
-            xml.readNext();
-            ui->status->append( xml.name().toString() );
-        }
-        if( xml.hasError() ){
-            ui->status->append("parse failed");
-            ui->status->append( xml.errorString() );
+
+        while(pf.hasPhoto()){
+            QString path = pf.nextPhoto();
+            path = "http://www.flickr.com" + path;
+            ui->status->append(path + "\n");
+//            QMessageBox::about(NULL, "path", path);
         }
 
-        //ui->status->append(response);
-        //ui->status->append("done");
+        if(pf.hasPage()){
+            QString page = pf.nextPage();
+            page = "http://www.flickr.com" + page;
+            ui->status->append("Has another page: " + page + "\n");
+        }
     }else{
         ui->status->append("error");
     }

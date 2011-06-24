@@ -9,29 +9,30 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
-    QFile file("flickr.html");
+    MainWindow w;
+    w.show();
+
+    /*
+    QFile file("C:\\qtapp\\flickr.html");
     if( file.exists() ){
         if( file.open(QIODevice::ReadOnly) ){
             //QMessageBox::about(NULL,"","file opened");
             photoFinder pf(file.readAll());
             while(pf.hasPhoto()){
                 //get photo link
-//                QMessageBox::about(NULL,"hasPhoto","has photo");
-                std::cout<<"has photo"<<endl;
-                pf.nextPhoto();
+                QMessageBox::about(NULL,"hasPhoto","has photo\n " + pf.nextPhoto() );
+//                std::cout<<"has photo: "<<pf.nextPhoto()<<endl;
             }
-            while(pf.hasPage()){
+            if(pf.hasPage()){
                 //get next page link
 //                QMessageBox::about(NULL,"","has page");
-                std::cout<<"has page"<<endl;
-                pf.nextPage();
+                std::cout<< pf.nextPage().toStdString() <<endl;
             }
         }
     }
+    */
 
 
-    //return a.exec();
-    return 0;
+    return a.exec();
+//    return 0;
 }
