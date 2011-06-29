@@ -9,6 +9,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+ 
+    // Add dynamic library
+    a.addLibraryPath(a.applicationDirPath());
+
     MainWindow w;
     w.show();
 
