@@ -58,9 +58,16 @@ void MainWindow::on_pushButton_clicked()
     ui->pushButton->setEnabled(false);
 
     QString homeUrl = ui->homeUrl->text();
-    QUrl url(homeUrl);
-    ui->statusBar->showMessage("Reading URL: " + homeUrl);
-
-    networkManager.get(QNetworkRequest(url));
+    if(homeUrl.indexOf("www.flickr.com") != -1 && homeUrl.indexOf("photos") != -1
+       && homeUrl.indexOf("http") != -1){
+        // Get content
+        QUrl url(homeUrl);
+        ui->statusBar->showMessage("Reading URL: " + homeUrl);
+        networkManager.get(QNetworkRequest(url));
+    }else{
+        // URL incorrect
+        QMessageBox::warning(NULL,"Alert","Please input a Flickr photo stream URL.\nLike: http://www.flickr.com/photos/myphoto/");
+        ui->pushButton->setEnabled(true);
+    }
 
 }
