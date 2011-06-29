@@ -8,7 +8,9 @@ TARGET = flickrLinker
 TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
-    photofinder.cpp
+    photofinder.cpp \
+    photo.cpp
 HEADERS += mainwindow.h \
-    photofinder.h
+    photofinder.h \
+    photo.h
 FORMS += mainwindow.ui
