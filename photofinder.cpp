@@ -34,7 +34,12 @@ QString photoFinder::nextPage(){
 
 QString photoFinder::nextPhoto(){
     int indexOfContainer = content.indexOf("<span class=\"photo_container", this->indexOfPhoto);
-    int indexOfRight = content.indexOf("<div class=\"title\">", this->indexOfPhoto);
+    int indexOfRight = 0;
+    if( content.indexOf("group-pool-header") != -1 ){
+        indexOfRight = content.indexOf("class=\"pc_img\"", this->indexOfPhoto);
+    }else{
+        indexOfRight = content.indexOf("<div class=\"title\">", this->indexOfPhoto);
+    }
     QByteArray cut = content.mid(indexOfContainer, indexOfRight);
     int start = cut.indexOf("<a href=\"") + sizeof("<a href=\"");
     int end = cut.indexOf("\"", start + 1);
