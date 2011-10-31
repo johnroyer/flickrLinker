@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include <QString>
 #include <QtNetwork>
-#include <QXmlStreamReader>
 #include "photofinder.h"
 #include <iostream>
 #include <QMessageBox>
