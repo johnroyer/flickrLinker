@@ -44,6 +44,11 @@ QString photoFinder::nextPhoto(){
     int start = cut.indexOf("<a href=\"") + sizeof("<a href=\"");
     int end = cut.indexOf("\"", start + 1);
     QString path = cut.mid(start - 1, end - start + 1);
+
+    // Remove "/in/photostream" in URL
+    path.lastIndexOf("/in/photostream");
+    path.replace("/in/photostream","");
+
     this->indexOfPhoto = indexOfRight + 10;
     return path;
 }
